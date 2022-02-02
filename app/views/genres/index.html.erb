@@ -1,0 +1,19 @@
+<h1>Genres</h1>
+
+<% if @genres.present? %>
+    <ul>
+        <% @genres.each do |genre| %>
+            <li> <%= link_to genre.name,  genre_path(genre)%> </li>
+            <% if current_user_admin? %>
+                <%= link_to "Edit", edit_genre_path(genre) %>
+                <%= link_to "Delete", genre_path(genre), method: :delete %>     
+            <% end %>
+        <%end%>
+    </ul>
+<% end %>
+
+<% if current_user_admin? %>
+    <section class = "admin">
+        <%= link_to "Add New Genre", new_genre_path, class: "button" %>
+    </section>  
+<% end %>

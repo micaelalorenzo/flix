@@ -1,0 +1,51 @@
+<setion class = "user">
+
+    <div class = "image">
+        <%= profile_image(@user) %>
+    </div>
+
+    <h1> <%= @user.name %></h1>
+    <h2> <%= mail_to(@user.email) %></h2>
+    <h3><%= @user.username %></h3>
+    <p><%= @user.created_at.strftime("%B %Y") %></p>
+    <div class = "actions">
+        <%if current_user?(@user) %>
+            <%= link_to "Edit Account", edit_user_path(@user), class: "button edit" %>
+        <%end%>
+        <% if current_user_admin? %>
+            <%= link_to "Delete Account", @user, method: :delete, 
+                data: { confirm: "Permanently delete your account!?" }, class: "button delete" %>
+
+        <% end %>
+    </div>
+    <% if @favorites.present? %>
+            <h3>Favourites movies</h3>
+            <div class = "favorite-movies" >
+                <% @favorites.each do |movie| %>
+                    <%= link_to movie.title, movie %>  
+                <% end %>
+            </div>
+    <% end %>
+    <% if @reviews.present? %>
+        <h3>Reviews</h3>
+        <% @reviews.each do |review| %>
+            <% @movie = review.movie %>
+            <div class = "review">
+                <div class = "details">
+                    <span class = "title">
+                        <%= link_to @movie.title, review.movie %>
+                    </span>
+                    <%= render "shared/stars", percent: review.stars_as_percent %>
+                    <span class = "date">
+                        Created <%= time_ago_in_words(review.created_at) %>
+                    </span>
+                    <p>
+                        "<%= review.comment %>"
+                    </p>
+                </div>
+            </div>
+    <% end %>
+    <% end %>
+
+
+</section>

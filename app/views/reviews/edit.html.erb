@@ -1,0 +1,5 @@
+<% movie = @movie %>
+
+<h1>Editing review of <%= movie.title %></h1>
+
+<%= render "shared/reviewForm", movie: movie, review:@review %>
