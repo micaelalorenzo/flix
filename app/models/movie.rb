@@ -36,7 +36,7 @@ class Movie < ApplicationRecord
     scope :recent, -> (max = 5){ upcoming.limit(max) }
 
     scope :hits, -> { released.where("total_gross >= 300000000").order("total_gross desc") }
-    scope :flop, -> { released.where("total_gross < 225000000").order("total_gross") }
+    scope :flops, -> { released.where("total_gross < 225000000").order("total_gross") }
 
     scope :grossed_less_than, -> (max) { where("total_gross < ?", max) }
     scope :grossed_greater_than, -> (min) { where("total_gross > ?", min) }
